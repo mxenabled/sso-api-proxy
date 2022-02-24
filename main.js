@@ -1,13 +1,11 @@
-import "dotenv/config"
 import http from "http"
 import fetch from "node-fetch"
 
 import { printWelcome, printApiDocs } from "./help.js"
+import { loadConfig, createDotEnv } from "./config.js"
 
-const clientId = process.env["CLIENT_ID"]
-const apiKey = process.env["API_KEY"]
+let { clientId, apiKey } = loadConfig()
 const port = process.env["PORT"] || 8089
-const authorization = Buffer.from(`${clientId}:${apiKey}`).toString("base64")
 
 const requestListener = async (req, res) => {
   process.stdout.write(`Handling ${req.url} `)
@@ -29,6 +27,7 @@ const requestListener = async (req, res) => {
   const bodyData = Buffer.concat(bodyParts).toString()
   const body = bodyData ? JSON.parse(bodyData) : {}
 
+  const authorization = Buffer.from(`${clientId}:${apiKey}`).toString("base64")
   const url = `https://int-api.mx.com/users/${userGuid}/widget_urls`
   const options = {
     method: "POST",
@@ -61,6 +60,22 @@ const requestListener = async (req, res) => {
   res.writeHead(200)
   res.end(JSON.stringify(responseJson))
   console.log("done")
+}
+
+if (!clientId || !apiKey) {
+  console.log(`
+Error: I need a CLIENT_ID and an API_KEY environment variable before I can run.
+You can defined those variables in your environment or in a .env file.`)
+
+  const created = await createDotEnv()
+
+  if (!created) {
+    console.log("Ok, goodbye")
+    process.exit(1)
+  }
+
+  clientId = loadConfig().clientId
+  apiKey = loadConfig().apiKey
 }
 
 printWelcome()
