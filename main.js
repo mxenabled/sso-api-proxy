@@ -1,6 +1,8 @@
 import http from "http"
 import fetch from "node-fetch"
 
+import { printWelcome, printApiDocs } from "./help.js"
+
 const clientId = process.env["CLIENT_ID"]
 const apiKey = process.env["API_KEY"]
 const port = process.env["PORT"] || 8089
@@ -24,7 +26,7 @@ const requestListener = async (req, res) => {
     bodyParts.push(chunk)
   }
   const bodyData = Buffer.concat(bodyParts).toString()
-  const body = JSON.parse(bodyData)
+  const body = bodyData ? JSON.parse(bodyData) : {}
 
   const url = `https://int-api.mx.com/users/${userGuid}/widget_urls`
   const options = {
@@ -60,6 +62,11 @@ const requestListener = async (req, res) => {
   console.log("done")
 }
 
+printWelcome()
+
+process.stdout.write("Starting server... ")
 const server = http.createServer(requestListener)
-console.log(`Listening on port ${port}`)
 server.listen(port)
+process.stdout.write(` ready, listening on port ${port}\n`)
+
+printApiDocs(port)
