@@ -35,18 +35,21 @@ export const printWelcome = () =>
 
 export const printApiDocs = (port) => {
   console.log(`
-Any configuration you should normally pass to the Platform API via the request
-body or a header can be used in this server as well. This server expects
-requests with the following form:
+This server proxies request to our Platform API for Widget SSO URLs. Any
+configuration that you could normally pass to the Platform API via the request
+body or a header can be passed in this server as well. This server expects
+request URLs with the following form:
 
     http://localhost:${port}/<widget>/<user_guid>.
+
 
 Example curl commands:
 
     curl localhost:8089/connect_widget/USR-081ff65e-3087-4cc2-a2c4-365354e1e6cb
 
+
 If you're using the example Widget SDK application, add this to your
-config.json file (just replace <user guid> with the approprivate value):
+config.json file (just replace <user guid> with your user's guid):
 
     {
         "proxy": "http://localhost:8089/connect_widget/<user guid>"
