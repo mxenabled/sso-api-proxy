@@ -19,6 +19,13 @@ const requestListener = async (req, res) => {
   const widgetType = parts[1]
   const userGuid = parts[2]
 
+  const bodyParts = []
+  for await (const chunk of req) {
+    bodyParts.push(chunk)
+  }
+  const bodyData = Buffer.concat(bodyParts).toString()
+  const body = JSON.parse(bodyData)
+
   const url = `https://int-api.mx.com/users/${userGuid}/widget_urls`
   const options = {
     method: "POST",
@@ -33,6 +40,7 @@ const requestListener = async (req, res) => {
         is_mobile_webview: true,
         ui_message_version: 4,
         ui_message_webview_url_scheme: "mx",
+        ...body?.widget_url,
       },
     }),
   }
