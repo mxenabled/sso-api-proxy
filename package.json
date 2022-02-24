@@ -1,7 +1,7 @@
 {
-  "name": "api-proxy",
+  "name": "widget-sso-api-proxy",
   "version": "1.0.0",
-  "description": "",
+  "description": "This server proxies request to our Platform API for Widget SSO URLs. Any configuration that you could normally pass to the Platform API via the request body or a header can be passed in this server as well.",
   "main": "main.js",
   "type": "module",
   "scripts": {
