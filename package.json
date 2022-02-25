@@ -11,10 +11,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@gitlab.mx.com:Marcos.Minond/mx-api-proxy.git"
-  },
   "author": "",
   "license": "ISC",
   "dependencies": {
