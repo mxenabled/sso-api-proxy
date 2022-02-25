@@ -2,8 +2,22 @@
 
 This is a proxy server used to get Widget SSO URLs from our Platform API. Any
 configuration that you could normally pass to the Platform API via the request
-body or a header can be passed in this server as well. This server expects
-request URLs with the following form:
+body or a header can be passed in this server as well.
+
+
+## Getting started
+
+You'll need to have your client's API information (API key and client ID) and a
+user guid handy.
+
+To get started, simply run `node main` and follow the prompts. The first time
+you start the server, you'll be asked for your client's API information. This
+information is then saved to a file named `.env`. If you want to use a
+different client, you'll need to either modify or delete this file.
+
+## Making requests
+
+This server expects request URLs with the following form:
 
 ```
 http://localhost:8089/<widget>/<user_guid>
@@ -26,14 +40,3 @@ config.json file (just replace <user guid> with your user's guid):
     "proxy": "http://localhost:8089/connect_widget/<user_guid>"
 }
 ```
-
-
-## Getting started
-
-You'll need to have your client's API information (API key and client ID) and a
-user guid handy.
-
-To get started, simply run `node main` and follow the prompts. The first time
-you start the server, you'll be asked for your client's API information. This
-information is then saved to a file named `.env`. If you want to use a
-different client, you'll need to either modify or delete this file.
