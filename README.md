@@ -30,6 +30,10 @@ config.json file (just replace <user guid> with your user's guid):
 
 ## Getting started
 
-To get started, simply run `node main` and follow the prompts to create a
-configuration file and then start the server. You'll need to have your client's
-API information (API key and client ID) as well as a user guid.
+You'll need to have your client's API information (API key and client ID) and a
+user guid handy.
+
+To get started, simply run `node main` and follow the prompts. The first time
+you start the server, you'll be asked for your client's API information. This
+information is then saved to a file named `.env`. If you want to use a
+different client, you'll need to either modify or delete this file.
