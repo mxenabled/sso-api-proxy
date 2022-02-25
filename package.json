@@ -4,6 +4,10 @@
   "description": "This server proxies request to our Platform API for Widget SSO URLs. Any configuration that you could normally pass to the Platform API via the request body or a header can be passed in this server as well.",
   "main": "main.js",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.mx.com/mx/widget-sso-api-proxy"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

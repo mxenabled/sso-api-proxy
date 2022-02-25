@@ -1,6 +1,6 @@
 import { readFileSync } from "fs"
 
-const { version } = JSON.parse(readFileSync("./package.json"))
+const { repository, version } = JSON.parse(readFileSync("./package.json"))
 
 const header = `
  /$$      /$$ /$$       /$$                       /$$            /$$$$$$   /$$$$$$   /$$$$$$
@@ -27,24 +27,13 @@ const header = `
                                                                               |  $$$$$$/
                                                                                \\______/
 
-                                                                                (v${version})
-`
+                                                                                (v${version})`
 
 export const printWelcome = () =>
   console.log(header)
 
 export const printApiDocs = (port) => {
   console.log(`
-This is a proxy server used to get Widget SSO URLs from our Platform API. Any
-configuration that you could normally pass to the Platform API via the request
-body or a header can be passed in this server as well. This server expects
-request URLs with the following form:
-
-    http://localhost:${port}/<widget>/<user_guid>
-
-
-Example curl commands:
-
-    curl localhost:8089/connect_widget/USR-081ff65e-3087-4cc2-a2c4-365354e1e6cb
-`)
+Refer to the documentation in ${repository.url}
+for instructions on how to use this server.\n`)
 }
