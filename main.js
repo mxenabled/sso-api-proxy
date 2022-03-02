@@ -32,8 +32,9 @@ const requestListener = async (req, res) => {
   const options = {
     method: "POST",
     headers: {
-      Accept: "application/vnd.mx.api.v1+json",
+      Accept: req.headers["accept"] || "application/vnd.mx.api.v1+json",
       Authorization: `Basic ${authorization}`,
+      "Accept-Language": req.headers["accept-language"],
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
