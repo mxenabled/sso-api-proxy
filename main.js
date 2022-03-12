@@ -58,8 +58,12 @@ const requestListener = async (req, res) => {
     res.end("Error making API request")
   }
 
+  res.setHeader("Access-Control-Allow-Origin", "*")
+  res.setHeader("Access-Control-Allow-Methods", "*")
+  res.setHeader("Access-Control-Allow-Headers", "*")
   res.writeHead(200)
   res.end(JSON.stringify(responseJson))
+
   console.log("done")
 }
 
