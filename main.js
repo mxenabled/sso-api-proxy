@@ -32,7 +32,7 @@ const requestListener = async (req, res) => {
   const options = {
     method: "POST",
     headers: {
-      Accept: req.headers["accept"] || "application/vnd.mx.api.v1+json",
+      Accept: "application/vnd.mx.api.v1+json",
       Authorization: `Basic ${authorization}`,
       "Accept-Language": req.headers["accept-language"],
       "Content-Type": "application/json",
@@ -51,11 +51,13 @@ const requestListener = async (req, res) => {
   let responseJson
   try {
     const apiRes = await fetch(url, options)
+    console.log(apiRes)
     responseJson = await apiRes.json()
   } catch (error) {
     console.log(`Error making API request: ${error}`)
     res.writeHead(500)
     res.end("Error making API request")
+    return
   }
 
   res.setHeader("Access-Control-Allow-Origin", "*")
