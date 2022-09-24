@@ -26,8 +26,7 @@ export function makeApplication(client: MxPlatformApi) {
 
   app.get("/users/:userGuid/widget_urls", async (req, res) => {
     if (typeof req.query.widget_type !== "string") {
-      res.json({ error: "Missing widget_type query parameter" })
-      res.sendStatus(404)
+      res.status(422).json({ error: "Missing widget_type query parameter" })
       return
     }
 

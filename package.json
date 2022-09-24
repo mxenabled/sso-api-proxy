@@ -8,16 +8,18 @@
     "url": "https://gitlab.mx.com/mx/widget-sso-api-proxy"
   },
   "scripts": {
-    "start": "node build/main.js",
+    "start": "node build/src/main.js",
     "clean": "[ -d build ] && rm -r build || true",
     "build": "tsc",
+    "test": "tap --ts test/*_test.ts",
+    "test:coverage": "npm test -- --coverage-report html",
     "format": "npm run prettier -- -w",
-    "prettier": "prettier src",
-    "lint": "eslint src",
-    "spellcheck": "cspell src/*"
+    "prettier": "prettier src test",
+    "lint": "eslint src test",
+    "spellcheck": "cspell src/* test/*"
   },
   "files": [
-    "build"
+    "build/src"
   ],
   "dependencies": {
     "dotenv": "^16.0.0",
@@ -33,11 +35,17 @@
     "@types/inquirer": "^9.0.1",
     "@types/morgan": "^1.9.3",
     "@types/node": "^18.7.19",
+    "@types/supertest": "^2.0.12",
+    "@types/tap": "^15.0.7",
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "@typescript-eslint/parser": "^5.38.0",
     "cspell": "^6.10.1",
     "eslint": "^8.24.0",
+    "msw": "^0.47.3",
     "prettier": "^2.7.1",
+    "supertest": "^6.2.4",
+    "tap": "^16.3.0",
+    "ts-node": "^10.9.1",
     "typescript": "^4.8.3"
   },
   "prettier": {
@@ -81,5 +89,12 @@
       "**/node_modules/**",
       "**/build/**"
     ]
+  },
+  "tap": {
+    "lines": 90,
+    "functions": 90,
+    "branches": 90,
+    "statements": 90,
+    "check-coverage": false
   }
 }
