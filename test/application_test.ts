@@ -1,28 +1,35 @@
 import tap from "tap"
 import supertest from "supertest"
+import type { SuperTest, Test } from "supertest"
+import type { Express } from "express"
 
 import { MxPlatformApi, Configuration } from "mx-platform-node"
 
 import { makeApplication } from "../src/application"
 import { server } from "./mocks/platform_api"
 
-const config = new Configuration({
-  username: "fake client",
-  password: "fake key",
-  basePath: "https://int-api.mx.com",
-  baseOptions: {
-    headers: {
-      Accept: "application/vnd.mx.api.v1+json",
+const client = new MxPlatformApi(
+  new Configuration({
+    username: "fake client",
+    password: "fake key",
+    basePath: "https://int-api.mx.com",
+    baseOptions: {
+      headers: {
+        Accept: "application/vnd.mx.api.v1+json",
+      },
     },
-  },
-})
-
-const client = new MxPlatformApi(config)
-const app = makeApplication(client)
-const runner = supertest(app)
+  }),
+)
 
 tap.test("Application", async (t) => {
+  let app: Express
+  let runner: SuperTest<Test>
+
   t.before(() => server.listen({ onUnhandledRequest: "bypass" }))
+  t.beforeEach(() => {
+    app = makeApplication(client)
+    runner = supertest(app)
+  })
   t.afterEach(() => server.resetHandlers())
   t.teardown(() => server.close())
 
