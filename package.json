@@ -2,19 +2,84 @@
   "name": "widget-sso-api-proxy",
   "version": "1.0.0",
   "description": "This server proxies request to our Platform API for Widget SSO URLs. Any configuration that you could normally pass to the Platform API via the request body or a header can be passed in this server as well.",
-  "main": "main.js",
-  "type": "module",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://gitlab.mx.com/mx/widget-sso-api-proxy"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node build/main.js",
+    "clean": "[ -d build ] && rm -r build || true",
+    "build": "tsc",
+    "format": "npm run prettier -- -w",
+    "prettier": "prettier src",
+    "lint": "eslint src",
+    "spellcheck": "cspell src/*"
   },
-  "author": "",
-  "license": "ISC",
+  "files": [
+    "build"
+  ],
   "dependencies": {
     "dotenv": "^16.0.0",
+    "express": "^4.18.1",
+    "express-async-errors": "^3.1.1",
+    "inquirer": "^8.2.4",
+    "morgan": "^1.10.0",
+    "mx-platform-node": "^0.11.2",
     "node-fetch": "^3.2.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.14",
+    "@types/inquirer": "^9.0.1",
+    "@types/morgan": "^1.9.3",
+    "@types/node": "^18.7.19",
+    "@typescript-eslint/eslint-plugin": "^5.38.0",
+    "@typescript-eslint/parser": "^5.38.0",
+    "cspell": "^6.10.1",
+    "eslint": "^8.24.0",
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.3"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "semi": false,
+    "trailingComma": "all",
+    "singleQuote": false
+  },
+  "eslintConfig": {
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+      "semi": [
+        "error",
+        "never"
+      ],
+      "quotes": [
+        "error",
+        "double"
+      ],
+      "no-trailing-spaces": "error",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          "argsIgnorePattern": "^_",
+          "varsIgnorePattern": "^_"
+        }
+      ]
+    },
+    "ignorePatterns": [
+      "**/node_modules/**",
+      "**/build/**"
+    ]
   }
 }

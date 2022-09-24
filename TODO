@@ -1,0 +1,2 @@
+- Save configuration to .env when any of it is missing
+- Print API documentation when starting server
