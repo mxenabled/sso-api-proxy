@@ -25,10 +25,10 @@ async function main() {
   )
 
   const app = makeApplication(client)
-  const port = process.env["PORT"] || 8089
+  const port = process.env.PORT || 8089
 
   console.log(`Starting ${name} v${version}`)
-  app.listen(process.env["PORT"] || 8089, () => {
+  app.listen(port, () => {
     console.log(`Running server on port ${port}`)
   })
 }
