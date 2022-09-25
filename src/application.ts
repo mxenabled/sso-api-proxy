@@ -30,18 +30,23 @@ export function makeApplication(client: MxPlatformApi) {
       return
     }
 
-    const response = await client.requestWidgetURL(req.params.userGuid, {
+    const body = {
       widget_url: {
         widget_type: req.query.widget_type,
         ...req.query,
       },
-    })
+    }
+    const language = req.headers["accept-language"]?.toString()
+    const response = await client.requestWidgetURL(req.params.userGuid, body, language)
 
     res.json(response.data)
   })
 
   app.post("/users/:userGuid/widget_urls", async (req, res) => {
-    const response = await client.requestWidgetURL(req.params.userGuid, req.body)
+    const body = req.body
+    const language = req.headers["accept-language"]?.toString()
+    const response = await client.requestWidgetURL(req.params.userGuid, body, language)
+
     res.json(response.data)
   })
 

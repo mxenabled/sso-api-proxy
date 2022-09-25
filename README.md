@@ -22,7 +22,7 @@ The `GET` endpoint accepts the widget configuration via the URL query
 parameters. For example:
 
 ```bash
-$ curl "http://localhost:8089/users/USR-081ff65e-3087-4cc2-a2c4-365354e1e6cb/widget_urls?widget_type=connect_widget&mode=verification"
+curl "http://localhost:8089/users/USR-081ff65e-3087-4cc2-a2c4-365354e1e6cb/widget_urls?widget_type=connect_widget&mode=verification"
 ```
 
 The `POST` endpoint accepts the widget configuration via the request body. For
