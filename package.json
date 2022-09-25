@@ -8,7 +8,7 @@
     "url": "https://gitlab.mx.com/mx/widget-sso-api-proxy"
   },
   "scripts": {
-    "prepack": "npm run build",
+    "prepack": "npm run clean && npm run build",
     "start": "node build/src/run.js",
     "clean": "[ -d build ] && rm -r build || true",
     "build": "tsc",
