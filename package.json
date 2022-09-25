@@ -8,6 +8,7 @@
     "url": "https://gitlab.mx.com/mx/widget-sso-api-proxy"
   },
   "scripts": {
+    "prepack": "npm run build",
     "start": "node build/src/main.js",
     "clean": "[ -d build ] && rm -r build || true",
     "build": "tsc",
@@ -21,6 +22,9 @@
   "files": [
     "build/src"
   ],
+  "bin": {
+    "mx-sso-api-proxy": "build/src/cli.js"
+  },
   "dependencies": {
     "dotenv": "^16.0.0",
     "express": "^4.18.1",
