@@ -1,3 +1,5 @@
+import "dotenv/config"
+
 import inquirer from "inquirer"
 import debug from "debug"
 import { cosmiconfig } from "cosmiconfig"
