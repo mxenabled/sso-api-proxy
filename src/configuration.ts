@@ -1,15 +1,44 @@
 import inquirer from "inquirer"
+import debug from "debug"
+import { cosmiconfig } from "cosmiconfig"
+
+const name = "mx-sso-api-proxy"
+const log = debug(`${name}:configuration`)
+const explorer = cosmiconfig(name, {
+  searchPlaces: [
+    `.${name}-rc`,
+    `.${name}-rc.json`,
+    `.${name}-rc.yaml`,
+    `.${name}-rc.yml`,
+    `.${name}-rc.js`,
+    `.${name}-rc.cjs`,
+    `${name}.config.js`,
+    `${name}.config.cjs`,
+  ],
+})
 
 export async function loadConfiguration() {
-  const clientId = process.env.MX_CLIENT_ID
-  const apiKey = process.env.MX_API_KEY
-  const apiHost = process.env.MX_API_HOST
+  return explorer.search().then((result) => {
+    const clientId = process.env.MX_CLIENT_ID || result?.config?.clientId
+    const apiKey = process.env.MX_API_KEY || result?.config?.apiKey
+    const apiHost = process.env.MX_API_HOST || result?.config?.apiHost
 
-  if (!clientId || !apiKey || !apiHost) {
-    return await runConfigurationWizard(clientId, apiKey, apiHost)
-  }
+    if (result?.filepath) {
+      log(`configuration file: ${result.filepath}`)
+    } else {
+      log("configuration file not found")
+    }
 
-  return { clientId, apiKey, apiHost }
+    log(`clientDd found: ${!!clientId}`)
+    log(`apiKey found: ${!!apiKey}`)
+    log(`apiHost: ${apiHost}`)
+
+    if (!clientId || !apiKey || !apiHost) {
+      return runConfigurationWizard(clientId, apiKey, apiHost)
+    }
+
+    return { clientId, apiKey, apiHost }
+  })
 }
 
 enum Environment {
