@@ -4,7 +4,6 @@ This is a proxy server used to get Widget SSO URLs from our Platform API. Any
 configuration that you could normally pass to the Platform API via the request
 body or a header can be passed in this server as well.
 
-
 ## Getting started
 
 You'll need to have your client's API information (API key and client ID) and a
