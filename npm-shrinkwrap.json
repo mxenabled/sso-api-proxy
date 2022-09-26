@@ -1,11 +1,11 @@
 {
-  "name": "@mxenabled/sso-api-proxy",
+  "name": "@mxenabled/sso-proxy",
   "version": "1.0.0",
   "lockfileVersion": 2,
   "requires": true,
   "packages": {
     "": {
-      "name": "@mxenabled/sso-api-proxy",
+      "name": "@mxenabled/sso-proxy",
       "version": "1.0.0",
       "license": "MIT",
       "dependencies": {
@@ -18,7 +18,8 @@
         "inquirer": "^8.2.4",
         "morgan": "^1.10.0",
         "mx-platform-node": "^0.11.2",
-        "node-fetch": "^3.2.0"
+        "node-fetch": "^3.2.0",
+        "wrap-text": "^1.0.9"
       },
       "bin": {
         "mx-sso-proxy": "build/src/cli.js"
@@ -8769,6 +8770,11 @@
         "url": "https://github.com/chalk/wrap-ansi?sponsor=1"
       }
     },
+    "node_modules/wrap-text": {
+      "version": "1.0.9",
+      "resolved": "https://registry.npmjs.org/wrap-text/-/wrap-text-1.0.9.tgz",
+      "integrity": "sha512-NWfjspSgMDXQIMpKM56AwCQPI01OMFRYYJBh6dGNCfH7AOl+j/VqqbiopgJ4VuQfSluqLc+2ekqaPNpYAGZ/Vg=="
+    },
     "node_modules/wrappy": {
       "version": "1.0.2",
       "resolved": "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz",
@@ -15212,6 +15218,11 @@
         "string-width": "^4.1.0",
         "strip-ansi": "^6.0.0"
       }
+    },
+    "wrap-text": {
+      "version": "1.0.9",
+      "resolved": "https://registry.npmjs.org/wrap-text/-/wrap-text-1.0.9.tgz",
+      "integrity": "sha512-NWfjspSgMDXQIMpKM56AwCQPI01OMFRYYJBh6dGNCfH7AOl+j/VqqbiopgJ4VuQfSluqLc+2ekqaPNpYAGZ/Vg=="
     },
     "wrappy": {
       "version": "1.0.2",
