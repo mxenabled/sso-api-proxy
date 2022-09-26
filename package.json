@@ -23,7 +23,7 @@
     "build/src"
   ],
   "bin": {
-    "mx-sso-api-proxy": "build/src/cli.js"
+    "mx-sso-proxy": "build/src/cli.js"
   },
   "dependencies": {
     "cosmiconfig": "^7.0.1",

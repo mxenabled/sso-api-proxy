@@ -4,7 +4,7 @@ import inquirer from "inquirer"
 import debug from "debug"
 import { cosmiconfig } from "cosmiconfig"
 
-const name = "mx-sso-api-proxy"
+const name = "mx-sso-proxy"
 const log = debug(`${name}:configuration`)
 const explorer = cosmiconfig(name, {
   searchPlaces: [
