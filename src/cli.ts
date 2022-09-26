@@ -1,3 +1,5 @@
 #!/usr/bin/env node
 
-import "./run"
+import { run } from "./application"
+
+run()
