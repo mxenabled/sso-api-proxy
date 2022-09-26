@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { readFileSync } from "fs"
-const { Command } = require("commander")
+import { Command } from "commander"
 
 import { run } from "./application"
 import { name } from "./configuration"
@@ -15,7 +15,7 @@ program.name(name).description(description).version(version)
 program
   .command("run", { isDefault: true })
   .description("Run the MX SSO API proxy server")
-  .option("-p, --port <number>", "port number", process.env.PORT || 8089)
+  .option("-p, --port <number>", "port number", process.env.PORT || "8089")
   .action((options: { port: number }) => run(options.port))
 
 program.parse()
