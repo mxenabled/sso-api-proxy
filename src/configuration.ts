@@ -31,7 +31,7 @@ export async function loadConfiguration() {
       log("configuration file not found")
     }
 
-    log(`clientDd found: ${!!clientId}`)
+    log(`clientId found: ${!!clientId}`)
     log(`apiKey found: ${!!apiKey}`)
     log(`apiHost: ${apiHost}`)
 
