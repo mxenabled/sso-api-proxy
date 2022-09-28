@@ -75,3 +75,7 @@ guid):
     "proxy": "http://localhost:8089/users/{user guid}/widget_urls"
 }
 ```
+
+---
+
+[![Build](https://github.com/mxenabled/sso-api-proxy/actions/workflows/build.yml/badge.svg)](https://github.com/mxenabled/sso-api-proxy/actions/workflows/build.yml)
