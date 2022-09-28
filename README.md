@@ -6,8 +6,10 @@ body or a header can be passed in this server as well.
 
 ## Getting started
 
-To get started, simply run `node start` and follow the prompts to enter your
-client's client's API information (API key and client ID).
+Run `npm i -g @mxenabled/sso-api-proxy` to install this package globally and be
+able to run the `mx-sso-api-proxy` command from anywhere. Running
+`mx-sso-api-proxy` will start the proxy server. Run `mx-sso-api-proxy help` for
+additional information on the commands and arguments.
 
 ## Configuration
 
