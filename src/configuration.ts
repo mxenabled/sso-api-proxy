@@ -4,6 +4,13 @@ import inquirer from "inquirer"
 import debug from "debug"
 import { cosmiconfig } from "cosmiconfig"
 
+export interface Configuration {
+  clientId: string
+  apiKey: string
+  apiHost: string
+  defaultUserGuid?: string
+}
+
 export const name = "mx-sso-proxy"
 const log = debug(`${name}:configuration`)
 const explorer = cosmiconfig(name, {
@@ -19,11 +26,12 @@ const explorer = cosmiconfig(name, {
   ],
 })
 
-export async function loadConfiguration() {
+export async function loadConfiguration(): Promise<Configuration> {
   return explorer.search().then((result) => {
     const clientId = process.env.MX_CLIENT_ID || result?.config?.clientId
     const apiKey = process.env.MX_API_KEY || result?.config?.apiKey
     const apiHost = process.env.MX_API_HOST || result?.config?.apiHost
+    const defaultUserGuid = process.env.MX_DEFAULT_USER_GUID || result?.config?.defaultUserGuid
 
     if (result?.filepath) {
       log(`configuration file: ${result.filepath}`)
@@ -34,12 +42,13 @@ export async function loadConfiguration() {
     log(`clientId found: ${!!clientId}`)
     log(`apiKey found: ${!!apiKey}`)
     log(`apiHost: ${apiHost}`)
+    log(`defaultUserGuid: ${defaultUserGuid}`)
 
     if (!clientId || !apiKey || !apiHost) {
-      return runConfigurationWizard(clientId, apiKey, apiHost)
+      return runConfigurationWizard(clientId, apiKey, apiHost, defaultUserGuid)
     }
 
-    return { clientId, apiKey, apiHost }
+    return { clientId, apiKey, apiHost, defaultUserGuid }
   })
 }
 
@@ -65,6 +74,7 @@ async function runConfigurationWizard(
   existingClientId?: string,
   existingApiKey?: string,
   existingApiHost?: string,
+  existingDefaultUserGuid?: string,
 ) {
   return inquirer
     .prompt([
@@ -83,6 +93,12 @@ async function runConfigurationWizard(
         validate: (answer) => !!answer,
       },
       {
+        type: "input",
+        name: "defaultUserGuid",
+        message: "Default user guid",
+        when: !existingDefaultUserGuid,
+      },
+      {
         type: "list",
         name: "environment",
         message: "Environment",
@@ -96,6 +112,7 @@ async function runConfigurationWizard(
         clientId: existingClientId || answers.clientId,
         apiKey: existingApiKey || answers.apiKey,
         apiHost: existingApiHost || environmentHost(answers.environment),
+        defaultUserGuid: existingDefaultUserGuid || answers.defaultUserGuid,
       }
     })
 }

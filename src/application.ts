@@ -1,14 +1,17 @@
 import express from "express"
-import morgan from "morgan"
 import "express-async-errors"
-import { MxPlatformApi, Configuration } from "mx-platform-node"
+import type { Request, Response } from "express"
 
-import { loadConfiguration } from "./configuration"
+import morgan from "morgan"
+import { MxPlatformApi, Configuration as MxPlatformApiConfiguration } from "mx-platform-node"
+import type { WidgetRequestBody } from "mx-platform-node"
+
+import { Configuration, loadConfiguration } from "./configuration"
 
 export async function run(port: number) {
   const config = await loadConfiguration()
   const client = new MxPlatformApi(
-    new Configuration({
+    new MxPlatformApiConfiguration({
       username: config.clientId,
       password: config.apiKey,
       basePath: config.apiHost,
@@ -20,13 +23,13 @@ export async function run(port: number) {
     }),
   )
 
-  const app = makeApplication(client)
+  const app = makeApplication(client, config)
   app.listen(port, () => {
     console.log(`Running server on port ${port}`)
   })
 }
 
-export function makeApplication(client: MxPlatformApi) {
+export function makeApplication(client: MxPlatformApi, config: Configuration) {
   const app = express()
 
   app.use(morgan("tiny"))
@@ -59,19 +62,62 @@ export function makeApplication(client: MxPlatformApi) {
         ...req.query,
       },
     }
-    const language = req.headers["accept-language"]?.toString()
-    const response = await client.requestWidgetURL(req.params.userGuid, body, language)
 
-    res.json(response.data)
+    respondWithSSOURL(req, res, client, req.params.userGuid, body)
   })
 
   app.post("/users/:userGuid/widget_urls", async (req, res) => {
-    const body = req.body
-    const language = req.headers["accept-language"]?.toString()
-    const response = await client.requestWidgetURL(req.params.userGuid, body, language)
+    respondWithSSOURL(req, res, client, req.params.userGuid, req.body)
+  })
 
-    res.json(response.data)
+  app.options("/mx-sso-proxy", (req, res) => {
+    res.sendStatus(200)
+  })
+
+  app.get("/mx-sso-proxy", async (req, res) => {
+    if (typeof config.defaultUserGuid !== "string") {
+      res.status(422).json({ error: "Missing defaultUserGuid in configuration" })
+      return
+    }
+
+    if (typeof req.query.widget_type !== "string") {
+      res.status(422).json({ error: "Missing widget_type query parameter" })
+      return
+    }
+
+    const body = {
+      widget_url: {
+        widget_type: req.query.widget_type,
+        ...req.query,
+      },
+    }
+
+    respondWithSSOURL(req, res, client, config.defaultUserGuid, body)
+  })
+
+  app.post("/mx-sso-proxy", async (req, res) => {
+    if (typeof config.defaultUserGuid !== "string") {
+      res.status(422).json({ error: "Missing defaultUserGuid in configuration" })
+      return
+    }
+
+    respondWithSSOURL(req, res, client, config.defaultUserGuid, req.body)
   })
 
   return app
+}
+
+async function respondWithSSOURL(
+  req: Request,
+  res: Response,
+  client: MxPlatformApi,
+  userGuid: string,
+  body: WidgetRequestBody,
+) {
+  const response = await client.requestWidgetURL(
+    userGuid,
+    body,
+    req.headers["accept-language"]?.toString(),
+  )
+  res.json(response.data)
 }
