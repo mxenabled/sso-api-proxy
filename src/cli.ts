@@ -1,15 +1,13 @@
 #!/usr/bin/env node
 
-import { readFileSync } from "fs"
 import { Command } from "commander"
 import wrapText from "wrap-text"
 
 import { run } from "./application"
 import { name } from "./configuration"
+import { description, version } from "./package-info"
 
 const program = new Command()
-const pkg = readFileSync("./package.json")
-const { description, version } = JSON.parse(pkg.toString())
 
 program.name(name).description(wrapText(description)).version(version)
 

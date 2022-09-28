@@ -11,13 +11,15 @@
     "prepack": "npm run clean && npm run build",
     "start": "node build/src/cli.js",
     "clean": "[ -d build ] && rm -r build || true",
-    "build": "tsc",
+    "build": "npm run generate-package-info && npm run compile",
+    "compile": "tsc",
     "test": "tap --ts test/*_test.ts",
     "test:coverage": "npm test -- --coverage-report html",
     "format": "npm run prettier -- -w",
     "prettier": "prettier src test",
     "lint": "eslint src test",
-    "spellcheck": "cspell src/* test/*"
+    "spellcheck": "cspell src/* test/*",
+    "generate-package-info": "ts-node bin/generate-package-info.ts"
   },
   "files": [
     "build/src"
