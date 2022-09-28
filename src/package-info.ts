@@ -4,5 +4,5 @@
  */
 
 export const description =
-  "This server proxies request to our Platform API for Widget SSO URLs. Any configuration that you could normally pass to the Platform API via the request body or a header can be passed in this server as well."
+  "Proxy Widget SSO URL requests to our Platform API."
 export const version = "1.0.0"
