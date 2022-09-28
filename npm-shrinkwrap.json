@@ -1,12 +1,12 @@
 {
-  "name": "@mxenabled/sso-proxy",
-  "version": "1.0.0",
+  "name": "@mxenabled/sso-api-proxy",
+  "version": "1.0.1",
   "lockfileVersion": 2,
   "requires": true,
   "packages": {
     "": {
-      "name": "@mxenabled/sso-proxy",
-      "version": "1.0.0",
+      "name": "@mxenabled/sso-api-proxy",
+      "version": "1.0.1",
       "license": "MIT",
       "dependencies": {
         "commander": "^9.4.0",
@@ -22,7 +22,7 @@
         "wrap-text": "^1.0.9"
       },
       "bin": {
-        "mx-sso-proxy": "build/src/cli.js"
+        "mx-sso-api-proxy": "build/src/cli.js"
       },
       "devDependencies": {
         "@types/express": "^4.17.14",
