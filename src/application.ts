@@ -70,11 +70,11 @@ export function makeApplication(client: MxPlatformApi, config: Configuration) {
     respondWithSSOURL(req, res, client, req.params.userGuid, req.body)
   })
 
-  app.options("/mx-sso-proxy", (req, res) => {
+  app.options("/user/widget_urls", (req, res) => {
     res.sendStatus(200)
   })
 
-  app.get("/mx-sso-proxy", async (req, res) => {
+  app.get("/user/widget_urls", async (req, res) => {
     if (typeof config.defaultUserGuid !== "string") {
       res.status(422).json({ error: "Missing defaultUserGuid in configuration" })
       return
@@ -95,7 +95,7 @@ export function makeApplication(client: MxPlatformApi, config: Configuration) {
     respondWithSSOURL(req, res, client, config.defaultUserGuid, body)
   })
 
-  app.post("/mx-sso-proxy", async (req, res) => {
+  app.post("/user/widget_urls", async (req, res) => {
     if (typeof config.defaultUserGuid !== "string") {
       res.status(422).json({ error: "Missing defaultUserGuid in configuration" })
       return

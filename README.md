@@ -11,10 +11,17 @@ client's client's API information (API key and client ID).
 
 ## Making requests
 
-The server has two endpoints:
+The server has the following endpoints:
 
+- `GET /user/widget_urls`
+- `POST /user/widget_urls`
 - `GET /users/{user_guid}/widget_urls`
 - `POST /users/{user_guid}/widget_urls`
+
+
+The `/users/{user_guid}/widget_urls` endpoints use the user guid provided in
+the URL, whereas the `/user/widget_urls` endpoints use the user guid in the
+configuration.
 
 The `GET` endpoint accepts the widget configuration via the URL query
 parameters. For example:

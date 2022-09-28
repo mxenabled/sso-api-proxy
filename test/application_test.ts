@@ -61,20 +61,20 @@ tap.test("Application", async (t) => {
     t.same(res.body.widget_url.url, "https://widgets.moneydesktop.com/md/connect_widget/$ssotoken$")
   })
 
-  t.test("GET /mx-sso-proxy", async (t) => {
-    const res = await runner.get("/mx-sso-proxy?widget_type=connect_widget")
+  t.test("GET /user/widget_urls", async (t) => {
+    const res = await runner.get("/user/widget_urls?widget_type=connect_widget")
     t.same(res.status, 200)
     t.same(res.body.widget_url.url, "https://widgets.moneydesktop.com/md/connect_widget/$ssotoken$")
   })
 
-  t.test("GET /mx-sso-proxy", async (t) => {
-    const res = await runner.get("/mx-sso-proxy")
+  t.test("GET /user/widget_urls", async (t) => {
+    const res = await runner.get("/user/widget_urls")
     t.same(res.status, 422)
   })
 
-  t.test("POST /mx-sso-proxy", async (t) => {
+  t.test("POST /user/widget_urls", async (t) => {
     const res = await runner
-      .post("/mx-sso-proxy")
+      .post("/user/widget_urls")
       .set("Accept", "application/json")
       .send({ widget_url: { widget_type: "connect_widget" } })
 
