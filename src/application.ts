@@ -63,11 +63,11 @@ export function makeApplication(client: MxPlatformApi, config: Configuration) {
       },
     }
 
-    respondWithSSOURL(req, res, client, req.params.userGuid, body)
+    respondWithSsoUrl(req, res, client, req.params.userGuid, body)
   })
 
   app.post("/users/:userGuid/widget_urls", async (req, res) => {
-    respondWithSSOURL(req, res, client, req.params.userGuid, req.body)
+    respondWithSsoUrl(req, res, client, req.params.userGuid, req.body)
   })
 
   app.options("/user/widget_urls", (req, res) => {
@@ -92,7 +92,7 @@ export function makeApplication(client: MxPlatformApi, config: Configuration) {
       },
     }
 
-    respondWithSSOURL(req, res, client, config.defaultUserGuid, body)
+    respondWithSsoUrl(req, res, client, config.defaultUserGuid, body)
   })
 
   app.post("/user/widget_urls", async (req, res) => {
@@ -101,13 +101,13 @@ export function makeApplication(client: MxPlatformApi, config: Configuration) {
       return
     }
 
-    respondWithSSOURL(req, res, client, config.defaultUserGuid, req.body)
+    respondWithSsoUrl(req, res, client, config.defaultUserGuid, req.body)
   })
 
   return app
 }
 
-async function respondWithSSOURL(
+async function respondWithSsoUrl(
   req: Request,
   res: Response,
   client: MxPlatformApi,
