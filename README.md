@@ -9,6 +9,29 @@ body or a header can be passed in this server as well.
 To get started, simply run `node start` and follow the prompts to enter your
 client's client's API information (API key and client ID).
 
+## Configuration
+
+When the server starts, the following environment variables will be used if found:
+
+- `MX_CLIENT_ID`
+- `MX_API_KEY`
+- `MX_API_HOST`
+- `MX_DEFAULT_USER_GUID`
+
+Alternatively, a configuration file named `.mx-sso-proxy-rc.yaml` will be
+searched for, and, if located, used as well. The configuration file should look
+like this:
+
+```yaml
+apiKey: "[api key]"
+apiHost: "https://int-api.mx.com"
+clientId: "[client id]"
+defaultUserGuid: "[default user guid]"
+```
+
+If a required configuration is missing, you will be prompted to enter it in
+before the server starts.
+
 ## Making requests
 
 The server has the following endpoints:
