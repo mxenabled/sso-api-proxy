@@ -9,8 +9,7 @@ writeFileSync("src/package-info.ts", `/**
  * DO NOT EDIT
  */
 
-export const description =
-  "${description}"
+export const description = "${description}"
 export const version = "${version}"
 `)
 

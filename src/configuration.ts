@@ -11,7 +11,7 @@ export interface Configuration {
   defaultUserGuid?: string
 }
 
-export const name = "mx-sso-proxy"
+export const name = "mx-sso-api-proxy"
 const log = debug(`${name}:configuration`)
 const explorer = cosmiconfig(name, {
   searchPlaces: [

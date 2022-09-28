@@ -1,4 +1,4 @@
-# Widget SSO API Proxy
+# SSO API Proxy
 
 This is a proxy server used to get Widget SSO URLs from our Platform API. Any
 configuration that you could normally pass to the Platform API via the request
@@ -18,7 +18,7 @@ When the server starts, the following environment variables will be used if foun
 - `MX_API_HOST`
 - `MX_DEFAULT_USER_GUID`
 
-Alternatively, a configuration file named `.mx-sso-proxy-rc.yaml` will be
+Alternatively, a configuration file named `.mx-sso-api-proxy-rc.yaml` will be
 searched for, and, if located, used as well. The configuration file should look
 like this:
 
