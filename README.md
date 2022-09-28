@@ -6,9 +6,8 @@ body or a header can be passed in this server as well.
 
 ## Getting started
 
-You'll need to have your client's API information (API key and client ID) and a
-user guid handy. To get started, simply run `node start` and follow the
-prompts.
+To get started, simply run `node start` and follow the prompts to enter your
+client's client's API information (API key and client ID).
 
 ## Making requests
 
