@@ -1,0 +1,7 @@
+words:
+  - mxenabled
+
+ignorePaths:
+  - cspell.config.yaml
+  - npm-shrinkwrap.json
+  - tsconfig.json
