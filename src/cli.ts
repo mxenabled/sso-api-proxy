@@ -15,6 +15,9 @@ program
   .command("run", { isDefault: true })
   .description("Run the MX SSO API proxy server")
   .option("-p, --port <number>", "port number", process.env.PORT || "8089")
-  .action((options: { port: number }) => run(options.port))
+  .option("--serve-local-files", "serve local files", false)
+  .action((options: { port: number; serveLocalFiles: boolean }) =>
+    run(options.port, options.serveLocalFiles),
+  )
 
 program.parse()

@@ -8,7 +8,7 @@ import type { WidgetRequestBody } from "mx-platform-node"
 
 import { Configuration, loadConfiguration } from "./configuration"
 
-export async function run(port: number) {
+export async function run(port: number, serveLocalFiles = false) {
   const config = await loadConfiguration()
   const client = new MxPlatformApi(
     new MxPlatformApiConfiguration({
@@ -23,13 +23,17 @@ export async function run(port: number) {
     }),
   )
 
-  const app = makeApplication(client, config)
+  const app = makeApplication(client, config, serveLocalFiles)
   app.listen(port, () => {
     console.log(`Running server on port ${port}`)
   })
 }
 
-export function makeApplication(client: MxPlatformApi, config: Configuration) {
+export function makeApplication(
+  client: MxPlatformApi,
+  config: Configuration,
+  serveLocalFiles: boolean,
+) {
   const app = express()
 
   app.use(morgan("tiny"))
@@ -107,6 +111,11 @@ export function makeApplication(client: MxPlatformApi, config: Configuration) {
   const errHandler: ErrorRequestHandler = (err, req, res, _next) => {
     console.error(err.stack)
     res.status(500).send(err.message)
+  }
+
+  if (serveLocalFiles) {
+    console.log("Service local files")
+    app.use(express.static("."))
   }
 
   app.use(errHandler)

@@ -34,7 +34,7 @@ tap.test("Application", async (t) => {
 
   t.before(() => server.listen({ onUnhandledRequest: "bypass" }))
   t.beforeEach(() => {
-    app = makeApplication(client, config)
+    app = makeApplication(client, config, false)
     runner = supertest(app)
   })
   t.afterEach(() => server.resetHandlers())
