@@ -15,14 +15,22 @@ export const name = "mx-sso-api-proxy"
 const log = debug(`${name}:configuration`)
 const explorer = cosmiconfig(name, {
   searchPlaces: [
-    `.${name}-rc`,
+    `${name}-rc.cjs`,
+    `${name}-rc.js`,
+    `${name}-rc.json`,
+    `${name}-rc.yaml`,
+    `${name}-rc.yml`,
+    `${name}-rc`,
+    `${name}.config.cjs`,
+    `${name}.config.js`,
+    `.${name}-rc.cjs`,
+    `.${name}-rc.js`,
     `.${name}-rc.json`,
     `.${name}-rc.yaml`,
     `.${name}-rc.yml`,
-    `.${name}-rc.js`,
-    `.${name}-rc.cjs`,
-    `${name}.config.js`,
-    `${name}.config.cjs`,
+    `.${name}-rc`,
+    `.${name}.config.cjs`,
+    `.${name}.config.js`,
   ],
 })
 
