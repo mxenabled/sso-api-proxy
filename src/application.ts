@@ -1,6 +1,6 @@
 import express from "express"
 import "express-async-errors"
-import type { Request, Response } from "express"
+import type { Request, Response, ErrorRequestHandler, NextFunction } from "express"
 
 import morgan from "morgan"
 import { MxPlatformApi, Configuration as MxPlatformApiConfiguration } from "mx-platform-node"
@@ -50,7 +50,7 @@ export function makeApplication(client: MxPlatformApi, config: Configuration) {
     res.sendStatus(200)
   })
 
-  app.get("/users/:userGuid/widget_urls", async (req, res) => {
+  app.get("/users/:userGuid/widget_urls", async (req, res, next) => {
     if (typeof req.query.widget_type !== "string") {
       res.status(422).json({ error: "Missing widget_type query parameter" })
       return
@@ -63,18 +63,18 @@ export function makeApplication(client: MxPlatformApi, config: Configuration) {
       },
     }
 
-    respondWithSsoUrl(req, res, client, req.params.userGuid, body)
+    respondWithSsoUrl(req, res, client, req.params.userGuid, body, next)
   })
 
-  app.post("/users/:userGuid/widget_urls", async (req, res) => {
-    respondWithSsoUrl(req, res, client, req.params.userGuid, req.body)
+  app.post("/users/:userGuid/widget_urls", async (req, res, next) => {
+    respondWithSsoUrl(req, res, client, req.params.userGuid, req.body, next)
   })
 
   app.options("/user/widget_urls", (req, res) => {
     res.sendStatus(200)
   })
 
-  app.get("/user/widget_urls", async (req, res) => {
+  app.get("/user/widget_urls", async (req, res, next) => {
     if (typeof config.defaultUserGuid !== "string") {
       res.status(422).json({ error: "Missing defaultUserGuid in configuration" })
       return
@@ -92,17 +92,24 @@ export function makeApplication(client: MxPlatformApi, config: Configuration) {
       },
     }
 
-    respondWithSsoUrl(req, res, client, config.defaultUserGuid, body)
+    respondWithSsoUrl(req, res, client, config.defaultUserGuid, body, next)
   })
 
-  app.post("/user/widget_urls", async (req, res) => {
+  app.post("/user/widget_urls", async (req, res, next) => {
     if (typeof config.defaultUserGuid !== "string") {
       res.status(422).json({ error: "Missing defaultUserGuid in configuration" })
       return
     }
 
-    respondWithSsoUrl(req, res, client, config.defaultUserGuid, req.body)
+    respondWithSsoUrl(req, res, client, config.defaultUserGuid, req.body, next)
   })
+
+  const errHandler: ErrorRequestHandler = (err, req, res, _next) => {
+    console.error(err.stack)
+    res.status(500).send(err.message)
+  }
+
+  app.use(errHandler)
 
   return app
 }
@@ -113,11 +120,16 @@ async function respondWithSsoUrl(
   client: MxPlatformApi,
   userGuid: string,
   body: WidgetRequestBody,
+  next: NextFunction,
 ) {
-  const response = await client.requestWidgetURL(
-    userGuid,
-    body,
-    req.headers["accept-language"]?.toString(),
-  )
-  res.json(response.data)
+  try {
+    const response = await client.requestWidgetURL(
+      userGuid,
+      body,
+      req.headers["accept-language"]?.toString(),
+    )
+    res.json(response.data)
+  } catch (err) {
+    next(err)
+  }
 }
