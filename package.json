@@ -18,7 +18,7 @@
     "format": "npm run prettier -- -w",
     "prettier": "prettier src test",
     "lint": "eslint src test",
-    "spellcheck": "cspell src/* test/*",
+    "spellcheck": "cspell $(git ls-files)",
     "generate-package-info": "ts-node bin/generate-package-info.ts"
   },
   "files": [
