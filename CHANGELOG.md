@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 ### Fixed
 
+## [1.0.1] - 2022-10-14
+### Fixed
+
+- Handling API request errors
+
 ## [1.0.1] - 2022-09-28
 ### Changed
 
