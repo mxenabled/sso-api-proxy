@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 ### Fixed
 
-## [Unreleased]
+## [1.1.0] - 2022-10-14
 ### Added
 
 - Ability to serve local files. Enabled with the `--serve-local-files` flag.
