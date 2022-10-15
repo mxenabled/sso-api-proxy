@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+
+- Open path option for opening a browser after the server starts.
+
 ### Changed
 ### Fixed
 

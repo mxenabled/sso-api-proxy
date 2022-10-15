@@ -3,12 +3,13 @@ import "express-async-errors"
 import type { Request, Response, ErrorRequestHandler, NextFunction } from "express"
 
 import morgan from "morgan"
+import open from "open"
 import { MxPlatformApi, Configuration as MxPlatformApiConfiguration } from "mx-platform-node"
 import type { WidgetRequestBody } from "mx-platform-node"
 
 import { Configuration, loadConfiguration } from "./configuration"
 
-export async function run(port: number, serveLocalFiles = false) {
+export async function run(port: number, serveLocalFiles?: boolean, openPath?: string) {
   const config = await loadConfiguration()
   const client = new MxPlatformApi(
     new MxPlatformApiConfiguration({
@@ -23,9 +24,13 @@ export async function run(port: number, serveLocalFiles = false) {
     }),
   )
 
-  const app = makeApplication(client, config, serveLocalFiles)
+  const app = makeApplication(client, config, serveLocalFiles || false)
   app.listen(port, () => {
     console.log(`Running server on port ${port}`)
+
+    if (openPath) {
+      open(`http://localhost:${port}/${openPath}`)
+    }
   })
 }
 
