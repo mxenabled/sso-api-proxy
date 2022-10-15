@@ -3,7 +3,7 @@
 import { Command } from "commander"
 import wrapText from "wrap-text"
 
-import { run } from "./application"
+import { run, RunOptions } from "./application"
 import { name } from "./configuration"
 import { description, version } from "./package-info"
 
@@ -16,8 +16,7 @@ program
   .description("Run the MX SSO API proxy server")
   .option("-p, --port <number>", "port number", process.env.PORT || "8089")
   .option("--serve-local-files", "serve local files", false)
-  .action((options: { port: number; serveLocalFiles: boolean }) =>
-    run(options.port, options.serveLocalFiles),
-  )
+  .option("--prompt-for-user", "prompt for user settings when not auto detected", false)
+  .action((opt: RunOptions) => run(opt))
 
 program.parse()

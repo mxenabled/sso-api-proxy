@@ -1,5 +1,7 @@
 import "dotenv/config"
 
+import { writeFile } from "node:fs/promises"
+import yaml from "yaml"
 import inquirer from "inquirer"
 import debug from "debug"
 import { cosmiconfig } from "cosmiconfig"
@@ -34,8 +36,8 @@ const explorer = cosmiconfig(name, {
   ],
 })
 
-export async function loadConfiguration(): Promise<Configuration> {
-  return explorer.search().then((result) => {
+export async function loadConfiguration(promptForUser: boolean): Promise<Configuration> {
+  return explorer.search().then(async (result) => {
     const clientId = process.env.MX_CLIENT_ID || result?.config?.clientId
     const apiKey = process.env.MX_API_KEY || result?.config?.apiKey
     const apiHost = process.env.MX_API_HOST || result?.config?.apiHost
@@ -52,7 +54,7 @@ export async function loadConfiguration(): Promise<Configuration> {
     log(`apiHost: ${apiHost}`)
     log(`defaultUserGuid: ${defaultUserGuid}`)
 
-    if (!clientId || !apiKey || !apiHost) {
+    if (!clientId || !apiKey || !apiHost || (!defaultUserGuid && promptForUser)) {
       return runConfigurationWizard(clientId, apiKey, apiHost, defaultUserGuid)
     }
 
@@ -105,6 +107,7 @@ async function runConfigurationWizard(
         name: "defaultUserGuid",
         message: "Default user guid",
         when: !existingDefaultUserGuid,
+        validate: (answer) => !!answer,
       },
       {
         type: "list",
@@ -114,13 +117,26 @@ async function runConfigurationWizard(
         choices: [Environment.Development, Environment.Production],
         validate: (answer) => !!answer,
       },
+      {
+        type: "confirm",
+        name: "save",
+        message: "Would you like to save this configuration?",
+      },
     ])
-    .then((answers) => {
-      return {
+    .then(async (answers) => {
+      const config = {
         clientId: existingClientId || answers.clientId,
         apiKey: existingApiKey || answers.apiKey,
         apiHost: existingApiHost || environmentHost(answers.environment),
         defaultUserGuid: existingDefaultUserGuid || answers.defaultUserGuid,
       }
+
+      if (answers.save) {
+        const file = `./${name}-rc.yaml`
+        console.log(`Saving configuration to ${file}`)
+        await writeFile(file, yaml.stringify(config))
+      }
+
+      return config
     })
 }
