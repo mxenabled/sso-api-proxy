@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 ### Fixed
 
+## [1.2.0] - 2022-10-14
+### Changed
+
+- Prompting for user setting.
+- Prompting user to save configuration to local file.
+
 ## [1.1.0] - 2022-10-14
 ### Added
 
