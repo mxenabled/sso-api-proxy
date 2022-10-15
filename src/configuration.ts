@@ -37,7 +37,7 @@ const explorer = cosmiconfig(name, {
 })
 
 export async function loadConfiguration(): Promise<Configuration> {
-  return explorer.search().then(async (result) => {
+  return explorer.search().then((result) => {
     const clientId = process.env.MX_CLIENT_ID || result?.config?.clientId
     const apiKey = process.env.MX_API_KEY || result?.config?.apiKey
     const apiHost = process.env.MX_API_HOST || result?.config?.apiHost
