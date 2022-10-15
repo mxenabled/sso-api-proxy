@@ -36,7 +36,7 @@ const explorer = cosmiconfig(name, {
   ],
 })
 
-export async function loadConfiguration(promptForUser: boolean): Promise<Configuration> {
+export async function loadConfiguration(): Promise<Configuration> {
   return explorer.search().then(async (result) => {
     const clientId = process.env.MX_CLIENT_ID || result?.config?.clientId
     const apiKey = process.env.MX_API_KEY || result?.config?.apiKey
@@ -54,7 +54,7 @@ export async function loadConfiguration(promptForUser: boolean): Promise<Configu
     log(`apiHost: ${apiHost}`)
     log(`defaultUserGuid: ${defaultUserGuid}`)
 
-    if (!clientId || !apiKey || !apiHost || (!defaultUserGuid && promptForUser)) {
+    if (!clientId || !apiKey || !apiHost || !defaultUserGuid) {
       return runConfigurationWizard(clientId, apiKey, apiHost, defaultUserGuid)
     }
 

@@ -8,14 +8,8 @@ import type { WidgetRequestBody } from "mx-platform-node"
 
 import { Configuration, loadConfiguration } from "./configuration"
 
-export type RunOptions = {
-  port: number
-  serveLocalFiles: boolean
-  promptForUser: boolean
-}
-
-export async function run(opt: RunOptions) {
-  const config = await loadConfiguration(opt.promptForUser)
+export async function run(port: number, serveLocalFiles = false) {
+  const config = await loadConfiguration()
   const client = new MxPlatformApi(
     new MxPlatformApiConfiguration({
       username: config.clientId,
@@ -29,9 +23,9 @@ export async function run(opt: RunOptions) {
     }),
   )
 
-  const app = makeApplication(client, config, opt.serveLocalFiles)
-  app.listen(opt.port, () => {
-    console.log(`Running server on port ${opt.port}`)
+  const app = makeApplication(client, config, serveLocalFiles)
+  app.listen(port, () => {
+    console.log(`Running server on port ${port}`)
   })
 }
 
