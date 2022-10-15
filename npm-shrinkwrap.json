@@ -19,7 +19,8 @@
         "morgan": "^1.10.0",
         "mx-platform-node": "^0.11.2",
         "node-fetch": "^3.2.0",
-        "wrap-text": "^1.0.9"
+        "wrap-text": "^1.0.9",
+        "yaml": "^2.1.3"
       },
       "bin": {
         "mx-sso-api-proxy": "build/src/cli.js"
@@ -2283,6 +2284,14 @@
       },
       "engines": {
         "node": ">=10"
+      }
+    },
+    "node_modules/cosmiconfig/node_modules/yaml": {
+      "version": "1.10.2",
+      "resolved": "https://registry.npmjs.org/yaml/-/yaml-1.10.2.tgz",
+      "integrity": "sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==",
+      "engines": {
+        "node": ">= 6"
       }
     },
     "node_modules/create-require": {
@@ -6397,6 +6406,15 @@
         "yaml": "^1.5.0"
       }
     },
+    "node_modules/tap-yaml/node_modules/yaml": {
+      "version": "1.10.2",
+      "resolved": "https://registry.npmjs.org/yaml/-/yaml-1.10.2.tgz",
+      "integrity": "sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==",
+      "dev": true,
+      "engines": {
+        "node": ">= 6"
+      }
+    },
     "node_modules/tap/node_modules/@ampproject/remapping": {
       "version": "2.1.2",
       "dev": true,
@@ -8818,11 +8836,11 @@
       "dev": true
     },
     "node_modules/yaml": {
-      "version": "1.10.2",
-      "resolved": "https://registry.npmjs.org/yaml/-/yaml-1.10.2.tgz",
-      "integrity": "sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==",
+      "version": "2.1.3",
+      "resolved": "https://registry.npmjs.org/yaml/-/yaml-2.1.3.tgz",
+      "integrity": "sha512-AacA8nRULjKMX2DvWvOAdBZMOfQlypSFkjcOcu9FalllIDJ1kvlREzcdIZmidQUqqeMv7jorHjq2HlLv/+c2lg==",
       "engines": {
-        "node": ">= 6"
+        "node": ">= 14"
       }
     },
     "node_modules/yargs": {
@@ -10638,6 +10656,13 @@
         "parse-json": "^5.0.0",
         "path-type": "^4.0.0",
         "yaml": "^1.10.0"
+      },
+      "dependencies": {
+        "yaml": {
+          "version": "1.10.2",
+          "resolved": "https://registry.npmjs.org/yaml/-/yaml-1.10.2.tgz",
+          "integrity": "sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg=="
+        }
       }
     },
     "create-require": {
@@ -14845,6 +14870,14 @@
       "dev": true,
       "requires": {
         "yaml": "^1.5.0"
+      },
+      "dependencies": {
+        "yaml": {
+          "version": "1.10.2",
+          "resolved": "https://registry.npmjs.org/yaml/-/yaml-1.10.2.tgz",
+          "integrity": "sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==",
+          "dev": true
+        }
       }
     },
     "tcompare": {
@@ -15261,9 +15294,9 @@
       "dev": true
     },
     "yaml": {
-      "version": "1.10.2",
-      "resolved": "https://registry.npmjs.org/yaml/-/yaml-1.10.2.tgz",
-      "integrity": "sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg=="
+      "version": "2.1.3",
+      "resolved": "https://registry.npmjs.org/yaml/-/yaml-2.1.3.tgz",
+      "integrity": "sha512-AacA8nRULjKMX2DvWvOAdBZMOfQlypSFkjcOcu9FalllIDJ1kvlREzcdIZmidQUqqeMv7jorHjq2HlLv/+c2lg=="
     },
     "yargs": {
       "version": "17.5.1",
