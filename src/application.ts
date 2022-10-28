@@ -1,3 +1,5 @@
+import https from "https"
+
 import express from "express"
 import "express-async-errors"
 import type { Request, Response, ErrorRequestHandler, NextFunction } from "express"
@@ -20,6 +22,9 @@ export async function run(port: number, serveLocalFiles?: boolean, openPath?: st
         headers: {
           Accept: "application/vnd.mx.api.v1+json",
         },
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
       },
     }),
   )

@@ -2,7 +2,8 @@
 
 This is a proxy server used to get Widget SSO URLs from our Platform API. Any
 configuration that you could normally pass to the Platform API via the request
-body or a header can be passed in this server as well.
+body or a header can be passed in this server as well. **This tool is not meant
+to be used in a production environment.**
 
 ## Getting started
 
