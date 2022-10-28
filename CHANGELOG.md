@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 ### Fixed
 
+## [1.3.2] - 2022-10-28
+### Changed
+
+- Ignoring SSL errors when testing on internal servers.
+
 ## [1.3.0] - 2022-10-14
 ### Added
 
