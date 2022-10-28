@@ -13,6 +13,7 @@ import { Configuration, loadConfiguration } from "./configuration"
 
 export async function run(port: number, serveLocalFiles?: boolean, openPath?: string) {
   const config = await loadConfiguration()
+  const rejectUnauthorized = !config.apiHost.match(/\b(qa|sand)\b/)
   const client = new MxPlatformApi(
     new MxPlatformApiConfiguration({
       username: config.clientId,
@@ -23,7 +24,7 @@ export async function run(port: number, serveLocalFiles?: boolean, openPath?: st
           Accept: "application/vnd.mx.api.v1+json",
         },
         httpsAgent: new https.Agent({
-          rejectUnauthorized: false,
+          rejectUnauthorized,
         }),
       },
     }),
