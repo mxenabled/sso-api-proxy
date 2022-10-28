@@ -3,4 +3,5 @@
 .nyc_output
 build
 coverage
+mx-sso-api-proxy-rc.yaml
 node_modules
