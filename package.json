@@ -1,6 +1,6 @@
 {
   "name": "@mxenabled/sso-api-proxy",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Proxy Widget SSO URL requests to our Platform API.",
   "license": "MIT",
   "repository": {

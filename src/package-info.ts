@@ -4,4 +4,4 @@
  */
 
 export const description = "Proxy Widget SSO URL requests to our Platform API."
-export const version = "1.3.1"
+export const version = "1.3.3"
