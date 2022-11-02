@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 ### Changed
+
+- Using npm's lock file instead of the shrinkwrap to prevent development
+  dependencies from being installed in downstream projects.
+
 ### Fixed
 
 ## [1.3.2] - 2022-10-28
